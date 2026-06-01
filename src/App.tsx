@@ -513,7 +513,7 @@ export default function TestApp() {
     const songTitle = isHeal ? 'Heal the World' : 'Imagine';
     const isAllRevealed = revealedBlanks.length === questions.length;
     const allBlankIndexes = questions.map((_, i) => i);
-    const hideWord = (word) => `${word.charAt(0)}${'_'.repeat(Math.max(word.length - 1, 0))}`;
+    const hideWord = (word) => '_'.repeat(word.length);
     const toggleBlank = (index) => {
       setRevealedBlanks(
         revealedBlanks.includes(index)
