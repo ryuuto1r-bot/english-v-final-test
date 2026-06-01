@@ -10,6 +10,10 @@ const testData = {
       { q: "就任直後の Trump 大統領の行動", a: 8, options: [3, 5, 8, 11, 13, 14] },
       { q: "Google の最初のAI原則が公表された経緯", a: 13, options: [1, 9, 10, 11, 13, 14] }
     ],
+    wr3: {
+      text: "Google chief executive Sundar Pichai had previously stated that the company would not design or deploy AI for [weapons] intended to harm people, or for surveillance that violates internationally accepted norms. That [wording] was removed when Google updated its AI principles on February 4, 2025-just weeks after Pichai and other tech [titans] attended the inauguration of US President Donald Trump. When asked by AFP about the change, a Google [spokesperson] referred to a blog post outlining the company's AI principles, which made no [mention] of the promises Pichai had made.",
+      jp: "Googleの最高経営責任者スンダー・ピチャイ氏は以前、人を傷つけることを目的とした兵器や、国際的規範に反する監視のためにAIを設計・展開しないと述べていた。その文言は2025年2月4日のAI原則更新時に削除された。それはピチャイ氏らがトランプ大統領の就任式に出席したわずか数週間後のことだった。AFPの取材に対しGoogleの広報担当者は同社のAI原則をまとめたブログ投稿に言及したが、そこにはピチャイ氏がした約束への言及はなかった。"
+    },
     wr5: [
       { q: "The inauguration of US President Donald Trump took place in early February 2025.", a: "F", jp: "米国のドナルド・トランプ大統領の就任式は2025年2月上旬に行われた。", reason: "第2段落。原則が2月4日に更新されており、その「数週間前」に就任式があったため。" },
       { q: "US President Trump was unlikely to have supported the policy that required AI safety practices.", a: "T", jp: "米国のトランプ大統領がAIの安全対策を義務づける政策を支持していた可能性は低い。", reason: "第8段落。「就任直後にその大統領令を撤回した（rescinded）」とあるため。" },
@@ -39,6 +43,10 @@ const testData = {
       { q: "留学する生徒に支給される助成金の額", a: 5, options: [3, 4, 5, 6, 7] },
       { q: "2027年度の予算見積額", a: 7, options: [3, 4, 5, 6, 7] }
     ],
+    wr3: {
+      text: "The Osaka prefectural government plans to have all [prefecture]-run high schools sign sister-school agreements with schools abroad, enabling about [20] students from each school to study overseas for a short period. Each student will receive a [subsidy] of ¥100,000 and will cover any remaining expenses themselves. The aim is to help high school students [improve] their English abilities. Since students will be interacting with their sister schools during the day, the prefectural government is considering countries such as Australia and the Philippines because they are in [similar] time zones to Japan.",
+      jp: "大阪府は、すべての府立高校に海外の学校と姉妹校提携を結ばせ、各校から約20人の生徒が短期間海外留学できるようにする計画である。各生徒は10万円の補助金を受け取り、残りの費用は自己負担となる。目的は高校生の英語力向上を支援することである。生徒は日中に姉妹校と交流するため、府は日本と時差が似ているオーストラリアやフィリピンなどの国を検討している。"
+    },
     wr5: [
       { q: "Many prefectural governments have introduced study-abroad programs that include some students from all public high schools.", a: "F", jp: "多くの県では、全ての公立高校の生徒を対象とする海外留学プログラムを導入している。", reason: "第3段落。「異例のケースである（an unusual case）」とあるため誤り。" },
       { q: "About one-third of Osaka Prefecture's full-time high schools have sister-school agreements with schools abroad.", a: "T", jp: "大阪府の全日制高校の約3分の1が、海外の学校と姉妹校提携を結んでいる。", reason: "第4段落。「148校のうち49校（49 out of 148）」であり、ほぼ1/3に該当する。" },
@@ -68,6 +76,10 @@ const testData = {
       { q: "2025年2月1日時点でのフィリピンのデング熱感染者数", a: 9, options: [6, 7, 8, 9, 10, 11] },
       { q: "デング熱の流行を宣言したフィリピンの自治体の数", a: 10, options: [7, 8, 9, 10, 11, 12] }
     ],
+    wr3: {
+      text: "The World Health Organization ranked the Philippines as the country most [affected] by dengue in the Western Pacific region in 2023, with 167,355 cases and [575] deaths. The country has seen an [unusual] rise in cases in 2025, with 28,200 patients recorded as of February 1, and five cities and municipalities having declared [outbreaks]. In response, Addition Hills, a village in central Manila, has offered a bounty for mosquitoes. The village [captain] said this awareness-raising initiative could have a significant impact on curbing the spread of the tropical [disease] when combined with local clean-up efforts.",
+      jp: "世界保健機関は、2023年にフィリピンを西太平洋地域で最もデング熱の影響を受けた国とし、167,355件の症例と575人の死者を出したと位置づけた。同国では2025年に異常な症例の増加が見られ、2月1日時点で28,200人の患者が記録され、5つの都市や自治体が大流行を宣言している。これを受け、マニラ中心部のアディッション・ヒルズ村は蚊に報奨金を出している。村長は、この啓発活動は地域の清掃活動と組み合わせることで、この熱帯病の蔓延抑制に大きな影響を与える可能性があると述べた。"
+    },
     wr5: [
       { q: "Residents of Addition Hills receive two pesos when they bring in ten dead mosquitoes to the village hall.", a: "T", jp: "Addition Hills の住民は、村役場に死んだ蚊を10匹持ち込むと2ペソをもらえる。", reason: "第1段落。生死を問わず5匹で1ペソなので、10匹なら2ペソで合致。" },
       { q: "The Philippines was more severely affected by dengue in 2023 than many other countries in the Western Pacific region.", a: "T", jp: "2023年、フィリピンは西太平洋地域の他の多くの国々よりも深刻にデング熱の影響を受けた。", reason: "第7段落。「最も影響を受けた国（the country most affected）」とあるため合致。" },
@@ -97,6 +109,10 @@ const testData = {
       { q: "住宅宿泊事業法が施行された年", a: 6, options: [3, 4, 5, 6, 7, 8] },
       { q: "ビアレストラン 「えんや」がオープンさせた民泊施設の名前", a: 8, options: [5, 6, 7, 8, 9, 10] }
     ],
+    wr3: {
+      text: "Minpaku private lodging services using vacant houses and [vacation] homes have been [expanding] in Tochigi Prefecture, with the number of such lodgings [more] than tripling over the past five years. As of the end of fiscal 2023, 359 minpaku lodgings had been [registered] under the Private Lodging [Business] Law. The number is [particularly] high in Nasu and Nikko, both of which are home to major tourist [attractions]. This increase is attributed to growing awareness of minpaku services and rising demand from [inbound] tourists, partly [driven] by the weak yen.",
+      jp: "空き家や別荘を利用した民泊サービスが栃木県で拡大しており、そのような宿泊施設の数は過去5年間で3倍以上になっている。2023年度末時点で359件の民泊が住宅宿泊事業法に登録されていた。その数は主要な観光地がある那須や日光で特に高い。この増加は、民泊サービスの認知度向上と、一部には円安によるインバウンド観光客からの需要増に起因している。"
+    },
     wr5: [
       { q: "The weak yen makes it easier for foreigners to travel to Japan.", a: "T", jp: "円安により、外国人が日本を訪れやすくなっている。", reason: "第2段落。「円安の影響もあって訪日観光客の需要が高まっている」とあるため。" },
       { q: "Tochigi Prefecture knows how many special zone private lodgings there are.", a: "T", jp: "栃木県は特区民泊の数を把握している。", reason: "第5段落。「県内に特区民泊はない（there are no special zone private lodgings）」と0件であることを把握している。" },
@@ -149,7 +165,7 @@ const musicData = {
 };
 
 export default function TestApp() {
-  const [currentMode, setCurrentMode] = useState('menu'); // menu, wr2, wr5, ar1, ar2, wordList, music_heal, music_imagine
+  const [currentMode, setCurrentMode] = useState('menu'); // menu, wr2, wr3, wr5, ar1, ar2, wordList, music_heal, music_imagine
   const [selectedUnit, setSelectedUnit] = useState(1);
   const [questions, setQuestions] = useState([]);
   const [qIndex, setQIndex] = useState(0);
@@ -161,6 +177,7 @@ export default function TestApp() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false); // フラッシュカード用
+  const [revealedBlanks, setRevealedBlanks] = useState([]);
 
   const startMode = (mode) => {
     setCurrentMode(mode);
@@ -168,8 +185,10 @@ export default function TestApp() {
     setShowResult(false);
     setShowHint(false);
     setIsFlipped(false);
+    setRevealedBlanks([]);
     
     if (mode === 'wr2') setQuestions(testData[selectedUnit].wr2);
+    if (mode === 'wr3') setQuestions([testData[selectedUnit].wr3]);
     if (mode === 'wr5') setQuestions(testData[selectedUnit].wr5);
     if (mode === 'ar2' || mode === 'wordList') setQuestions(testData[selectedUnit].ar2);
     if (mode === 'ar1') {
@@ -217,6 +236,7 @@ export default function TestApp() {
       setShowResult(false);
       setShowHint(false);
       setIsFlipped(false);
+      setRevealedBlanks([]);
       if (currentMode === 'ar1') {
         setupOrderQuestion(questions[qIndex + 1]);
       }
@@ -249,6 +269,10 @@ export default function TestApp() {
         <div className="space-y-3">
           <button onClick={() => startMode('wr2')} className="w-full flex items-center justify-between p-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl transition-colors font-medium">
             <span className="flex items-center gap-3"><BookOpen size={20} /> 内容検索 (While reading 2)</span>
+            <ChevronRight size={18} />
+          </button>
+          <button onClick={() => startMode('wr3')} className="w-full flex items-center justify-between p-4 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl transition-colors font-medium">
+            <span className="flex items-center gap-3"><BookOpen size={20} /> 要約穴埋め (While reading 3)</span>
             <ChevronRight size={18} />
           </button>
           <button onClick={() => startMode('wr5')} className="w-full flex items-center justify-between p-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl transition-colors font-medium">
@@ -307,6 +331,95 @@ export default function TestApp() {
         ) : (
           <ResultPanel reason={`正解は 第 ${q.a} 段落 です。`} />
         )}
+      </div>
+    );
+  };
+
+  const WR3Mode = () => {
+    const q = questions[0];
+    if (!q) return null;
+
+    let blankIndex = -1;
+    const blankPattern = new RegExp('(\\[[^\\]]+\\])', 'g');
+    const exactBlankPattern = new RegExp('^\\[([^\\]]+)\\]$');
+    const parts = q.text.split(blankPattern);
+    const blankCount = (q.text.match(blankPattern) || []).length;
+    const allBlankIndexes = Array.from({ length: blankCount }, (_, i) => i);
+    const isAllRevealed = revealedBlanks.length === blankCount;
+    const hideWord = (word) => `${word.charAt(0)}${'_'.repeat(Math.max(word.length - 1, 0))}`;
+    const toggleBlank = (index) => {
+      setRevealedBlanks(
+        revealedBlanks.includes(index)
+          ? revealedBlanks.filter(i => i !== index)
+          : [...revealedBlanks, index]
+      );
+    };
+
+    return (
+      <div className="w-full max-w-2xl mx-auto px-4 pb-6">
+        <div className="mb-5">
+          <span className="text-sm font-bold text-rose-600 mb-2 block">While reading 3 (要約穴埋め) - UNIT {selectedUnit}</span>
+          <h2 className="text-2xl font-bold text-gray-800">要約穴埋め</h2>
+        </div>
+
+        <div className="bg-white p-5 md:p-7 rounded-2xl border border-rose-100 shadow-sm">
+          <p className="text-lg md:text-xl leading-9 text-gray-800 font-medium">
+            {parts.map((part, i) => {
+              const match = part.match(exactBlankPattern);
+              if (!match) return <React.Fragment key={i}>{part}</React.Fragment>;
+
+              blankIndex += 1;
+              const index = blankIndex;
+              const word = match[1];
+              const isRevealed = revealedBlanks.includes(index);
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => toggleBlank(index)}
+                  className={`mx-1 inline-flex min-w-[4.5rem] items-center justify-center rounded-lg border px-2 py-1 font-bold transition-colors align-baseline ${
+                    isRevealed
+                      ? 'border-rose-300 bg-rose-100 text-rose-700'
+                      : 'border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {isRevealed ? word : hideWord(word)}
+                </button>
+              );
+            })}
+          </p>
+
+          {showHint && (
+            <p className="mt-5 border-t border-rose-100 pt-5 text-base leading-8 text-gray-700 font-medium">
+              {q.jp}
+            </p>
+          )}
+        </div>
+
+        <div className="sticky bottom-0 -mx-4 mt-6 border-t border-gray-200 bg-gray-50/95 px-4 py-4 backdrop-blur">
+          <div className="mx-auto grid max-w-2xl grid-cols-3 gap-2">
+            <button
+              onClick={() => setRevealedBlanks(allBlankIndexes)}
+              disabled={isAllRevealed}
+              className={`rounded-xl py-3 text-sm font-bold shadow-sm transition-colors ${isAllRevealed ? 'bg-gray-200 text-gray-400' : 'bg-rose-600 text-white hover:bg-rose-700'}`}
+            >
+              全て表示
+            </button>
+            <button
+              onClick={() => setRevealedBlanks([])}
+              disabled={revealedBlanks.length === 0}
+              className={`rounded-xl py-3 text-sm font-bold shadow-sm transition-colors ${revealedBlanks.length === 0 ? 'bg-gray-200 text-gray-400' : 'bg-gray-800 text-white hover:bg-gray-700'}`}
+            >
+              隠す
+            </button>
+            <button
+              onClick={() => setShowHint(!showHint)}
+              className="rounded-xl bg-white py-3 text-sm font-bold text-rose-700 shadow-sm border border-rose-100 hover:bg-rose-50 transition-colors"
+            >
+              {showHint ? '和訳を隠す' : '和訳を見る'}
+            </button>
+          </div>
+        </div>
       </div>
     );
   };
@@ -558,6 +671,7 @@ export default function TestApp() {
       <div className="flex-1 flex items-center justify-center">
         {currentMode === 'menu' && <MainMenu />}
         {currentMode === 'wr2' && <WR2Mode />}
+        {currentMode === 'wr3' && <WR3Mode />}
         {currentMode === 'wr5' && <WR5Mode />}
         {currentMode === 'ar1' && <AR1Mode />}
         {currentMode === 'ar2' && <AR2Mode />}
