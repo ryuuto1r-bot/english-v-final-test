@@ -509,56 +509,97 @@ export default function TestApp() {
   };
 
   const MusicMode = () => {
-    const q = questions[qIndex];
     const isHeal = currentMode === 'music_heal';
+    const songTitle = isHeal ? 'Heal the World' : 'Imagine';
+    const isAllRevealed = revealedBlanks.length === questions.length;
+    const allBlankIndexes = questions.map((_, i) => i);
+    const hideWord = (word) => `${word.charAt(0)}${'_'.repeat(Math.max(word.length - 1, 0))}`;
+    const toggleBlank = (index) => {
+      setRevealedBlanks(
+        revealedBlanks.includes(index)
+          ? revealedBlanks.filter(i => i !== index)
+          : [...revealedBlanks, index]
+      );
+    };
+
     return (
-      <div className="w-full max-w-md mx-auto px-4">
-        <div className="mb-6">
+      <div className="w-full max-w-2xl mx-auto px-4 pb-6">
+        <div className="mb-5">
           <span className={`text-sm font-bold mb-2 block ${isHeal ? 'text-pink-600' : 'text-cyan-600'}`}>
-            🎵 {isHeal ? 'Heal the World' : 'Imagine'} ({qIndex + 1}/{questions.length})
+            洋楽 穴埋め - {songTitle}
           </span>
-          <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm mb-4">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">
-              {/* [   ] の部分を下線に置換して表示 */}
-              {q.q.split('[   ]').map((part, index, array) => (
-                <React.Fragment key={index}>
-                  {part}
-                  {index < array.length - 1 && (
-                    <span className="inline-block border-b-2 border-gray-400 w-12 mx-1 translate-y-1"></span>
-                  )}
-                </React.Fragment>
-              ))}
-            </h2>
-            {showHint && <p className="mt-4 pt-4 border-t border-gray-100 text-sm text-gray-600 font-medium">{q.jp}</p>}
-          </div>
-          {!showResult && !showHint && (
-            <button onClick={() => setShowHint(true)} className={`mt-2 text-sm font-bold hover:underline ${isHeal ? 'text-pink-600' : 'text-cyan-600'}`}>
-              和訳のヒントを見る
-            </button>
-          )}
+          <h2 className="text-2xl font-bold text-gray-800">{songTitle}</h2>
         </div>
-        
-        {!showResult ? (
-          <div className="grid grid-cols-2 gap-3">
-            {q.options.map(opt => (
-              <button 
-                key={opt} 
-                onClick={() => checkAnswerWR25(opt)} 
-                className={`py-4 bg-white border-2 rounded-xl text-xl font-bold transition-colors shadow-sm
-                  ${isHeal ? 'border-pink-100 text-pink-700 hover:border-pink-500 hover:bg-pink-50' : 'border-cyan-100 text-cyan-700 hover:border-cyan-500 hover:bg-cyan-50'}`}
-              >
-                {opt}
-              </button>
-            ))}
+
+        <div className={`bg-white p-5 md:p-7 rounded-2xl border shadow-sm ${isHeal ? 'border-pink-100' : 'border-cyan-100'}`}>
+          <div className="space-y-4">
+            {questions.map((q, index) => {
+              const isRevealed = revealedBlanks.includes(index);
+              const [head, tail] = q.q.split('[   ]');
+
+              return (
+                <div key={`${q.a}-${index}`} className="border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
+                  <p className="text-lg md:text-xl leading-9 text-gray-800 font-medium">
+                    {head}
+                    <button
+                      onClick={() => toggleBlank(index)}
+                      className={`mx-1 inline-flex min-w-[4.25rem] items-center justify-center rounded-lg border px-2 py-1 font-bold transition-colors align-baseline ${
+                        isRevealed
+                          ? isHeal
+                            ? 'border-pink-300 bg-pink-100 text-pink-700'
+                            : 'border-cyan-300 bg-cyan-100 text-cyan-700'
+                          : 'border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {isRevealed ? q.a : hideWord(q.a)}
+                    </button>
+                    {tail}
+                  </p>
+                  {showHint && (
+                    <p className={`mt-2 text-sm md:text-base leading-7 font-medium ${isHeal ? 'text-pink-700' : 'text-cyan-700'}`}>
+                      {q.jp}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        ) : (
-          <ResultPanel reason={
-            <div>
-              <span className="text-gray-500 text-sm">正解は</span>
-              <p className={`text-2xl font-bold mt-1 ${isHeal ? 'text-pink-700' : 'text-cyan-700'}`}>{q.a}</p>
-            </div>
-          } jp={q.jp} />
-        )}
+        </div>
+
+        <div className="sticky bottom-0 -mx-4 mt-6 border-t border-gray-200 bg-gray-50/95 px-4 py-4 backdrop-blur">
+          <div className="mx-auto grid max-w-2xl grid-cols-3 gap-2">
+            <button
+              onClick={() => setRevealedBlanks(allBlankIndexes)}
+              disabled={isAllRevealed}
+              className={`rounded-xl py-3 text-sm font-bold shadow-sm transition-colors ${
+                isAllRevealed
+                  ? 'bg-gray-200 text-gray-400'
+                  : isHeal
+                    ? 'bg-pink-600 text-white hover:bg-pink-700'
+                    : 'bg-cyan-600 text-white hover:bg-cyan-700'
+              }`}
+            >
+              全て表示
+            </button>
+            <button
+              onClick={() => setRevealedBlanks([])}
+              disabled={revealedBlanks.length === 0}
+              className={`rounded-xl py-3 text-sm font-bold shadow-sm transition-colors ${revealedBlanks.length === 0 ? 'bg-gray-200 text-gray-400' : 'bg-gray-800 text-white hover:bg-gray-700'}`}
+            >
+              隠す
+            </button>
+            <button
+              onClick={() => setShowHint(!showHint)}
+              className={`rounded-xl bg-white py-3 text-sm font-bold shadow-sm border transition-colors ${
+                isHeal
+                  ? 'border-pink-100 text-pink-700 hover:bg-pink-50'
+                  : 'border-cyan-100 text-cyan-700 hover:bg-cyan-50'
+              }`}
+            >
+              {showHint ? '和訳を隠す' : '和訳を見る'}
+            </button>
+          </div>
+        </div>
       </div>
     );
   };
