@@ -77,7 +77,7 @@ const testData = {
       { q: "デング熱の流行を宣言したフィリピンの自治体の数", a: 10, options: [7, 8, 9, 10, 11, 12] }
     ],
     wr3: {
-      text: "The World Health Organization ranked the Philippines as the country most [affected] by dengue in the Western Pacific region in 2023, with 167,355 cases and [575] deaths. The country has seen an [unusual] rise in cases in 2025, with 28,200 patients recorded as of February 1, and five cities and municipalities having declared [outbreaks]. In response, Addition Hills, a village in central Manila, has offered a bounty for mosquitoes. The village [captain] said this awareness-raising initiative could have a significant impact on curbing the spread of the tropical [disease] when combined with local clean-up efforts.",
+      text: "The World Health Organization ranked the Philippines as the country most affected by dengue in the Western Pacific region in [2023], with 167,355 cases and 575 deaths. The country has seen an [unusual] rise in cases in 2025, with 28,200 patients recorded as of February 1, and five cities and municipalities having declared [outbreaks]. In response, Addition Hills, a village in central Manila, has offered a bounty for mosquitoes. The village [captain] said this awareness-raising initiative could have a significant impact on curbing the spread of the tropical [disease] when combined with local clean-up efforts.",
       jp: "世界保健機関は、2023年にフィリピンを西太平洋地域で最もデング熱の影響を受けた国とし、167,355件の症例と575人の死者を出したと位置づけた。同国では2025年に異常な症例の増加が見られ、2月1日時点で28,200人の患者が記録され、5つの都市や自治体が大流行を宣言している。これを受け、マニラ中心部のアディッション・ヒルズ村は蚊に報奨金を出している。村長は、この啓発活動は地域の清掃活動と組み合わせることで、この熱帯病の蔓延抑制に大きな影響を与える可能性があると述べた。"
     },
     wr5: [
@@ -110,7 +110,7 @@ const testData = {
       { q: "ビアレストラン 「えんや」がオープンさせた民泊施設の名前", a: 8, options: [5, 6, 7, 8, 9, 10] }
     ],
     wr3: {
-      text: "Minpaku private lodging services using vacant houses and [vacation] homes have been [expanding] in Tochigi Prefecture, with the number of such lodgings [more] than tripling over the past five years. As of the end of fiscal 2023, 359 minpaku lodgings had been [registered] under the Private Lodging [Business] Law. The number is [particularly] high in Nasu and Nikko, both of which are home to major tourist [attractions]. This increase is attributed to growing awareness of minpaku services and rising demand from [inbound] tourists, partly [driven] by the weak yen.",
+      text: "Minpaku private lodging services using vacant houses and [vacation] homes have been expanding in Tochigi Prefecture, with the number of such lodgings more than tripling over the past five years. As of the end of fiscal 2023, [359] minpaku lodgings had been registered under the Private Lodging [Business] Law. The number is particularly high in Nasu and Nikko, both of which are home to major tourist [attractions]. This increase is attributed to growing awareness of minpaku services and rising demand from [inbound] tourists, partly driven by the weak yen.",
       jp: "空き家や別荘を利用した民泊サービスが栃木県で拡大しており、そのような宿泊施設の数は過去5年間で3倍以上になっている。2023年度末時点で359件の民泊が住宅宿泊事業法に登録されていた。その数は主要な観光地がある那須や日光で特に高い。この増加は、民泊サービスの認知度向上と、一部には円安によるインバウンド観光客からの需要増に起因している。"
     },
     wr5: [
