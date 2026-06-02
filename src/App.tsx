@@ -164,8 +164,142 @@ const musicData = {
   ]
 };
 
+const grammarData = {
+  rules: [
+    { title: "名詞が入る場所", points: ["a / an / the の後ろ", "in / of / for など前置詞の後ろ", "his / their / Google's など所有格の後ろ"] },
+    { title: "形容詞が入る場所", points: ["名詞の直前で名詞を説明する", "be動詞などの後ろで補語 C になる"] },
+    { title: "副詞が入る場所", points: ["動詞の近くで動作を説明する", "形容詞の直前で程度や様子を説明する", "文の最初や最後で文全体を説明する"] }
+  ],
+  posQuestions: [
+    {
+      unit: 1,
+      text: "... for surveillance violating ( international / internationally ) accepted norms.",
+      answer: "internationally",
+      pos: "副詞",
+      explanation: "accepted という過去分詞を修飾するので、副詞 internationally が入ります。"
+    },
+    {
+      unit: 1,
+      text: "There's a ( globe / global ) competition taking place for AI leadership.",
+      answer: "global",
+      pos: "形容詞",
+      explanation: "competition という名詞を直前から修飾するので、形容詞 global が入ります。"
+    },
+    {
+      unit: 2,
+      text: "The Osaka ( prefecture / prefectural ) government plans to have all prefecture-run high schools sign...",
+      answer: "prefectural",
+      pos: "形容詞",
+      explanation: "government という名詞を修飾するので、形容詞 prefectural が入ります。"
+    },
+    {
+      unit: 3,
+      text: "... explaining how he ( strategic / strategically ) chose a darkly lit fire station...",
+      answer: "strategically",
+      pos: "副詞",
+      explanation: "chose という動詞を修飾するので、副詞 strategically が入ります。"
+    },
+    {
+      unit: 3,
+      text: "... where he used a cup to ( manual / manually ) trap the insects against a wall.",
+      answer: "manually",
+      pos: "副詞",
+      explanation: "trap という動詞を修飾するので、副詞 manually が入ります。to 不定詞の中に副詞が入る形です。"
+    },
+    {
+      unit: 3,
+      text: "The country has seen an ( usual / unusual ) rise in cases this year.",
+      answer: "unusual",
+      pos: "形容詞",
+      explanation: "rise という名詞を修飾するので形容詞。文脈は「異常な増加」なので unusual です。"
+    },
+    {
+      unit: 4,
+      text: "Minpaku lodging services ( rapid / rapidly ) expanding in Tochigi Prefecture...",
+      answer: "rapidly",
+      pos: "副詞",
+      explanation: "expanding という動詞の働きをする語を修飾するので、副詞 rapidly が入ります。"
+    },
+    {
+      unit: 4,
+      text: "The increase can be attributed to growing ( aware / awareness ) of minpaku services...",
+      answer: "awareness",
+      pos: "名詞",
+      explanation: "growing に修飾され、of minpaku services につながる名詞が必要なので awareness です。"
+    }
+  ],
+  wordFamilies: [
+    { meaning: "世界(の)", noun: "globe", verb: "-", adjective: "global", adverb: "globally" },
+    { meaning: "国(の)", noun: "nation", verb: "-", adjective: "national", adverb: "nationwide" },
+    { meaning: "最初(の)", noun: "origin", verb: "originate", adjective: "original", adverb: "originally" },
+    { meaning: "関与(する)", noun: "involvement", verb: "involve", adjective: "involved", adverb: "-" },
+    { meaning: "要求(する)", noun: "requirement", verb: "require", adjective: "required", adverb: "-" },
+    { meaning: "気づき", noun: "awareness", verb: "-", adjective: "aware", adverb: "-" },
+    { meaning: "戦略(的な)", noun: "strategy", verb: "-", adjective: "strategic", adverb: "strategically" },
+    { meaning: "急速(な)", noun: "rapidity", verb: "-", adjective: "rapid", adverb: "rapidly" },
+    { meaning: "異常(な)", noun: "-", verb: "-", adjective: "unusual", adverb: "unusually" }
+  ],
+  patternRules: [
+    { pattern: "SV", name: "主語 + 動詞", check: "目的語や補語がなくても文が成立する。前置詞句は M として外す。" },
+    { pattern: "SVC", name: "主語 + 動詞 + 補語", check: "S = C の関係になる。be 動詞の後ろの形容詞は C になりやすい。" },
+    { pattern: "SVO", name: "主語 + 動詞 + 目的語", check: "動詞の後ろに「何を」が来る。S と O は同じものではない。" },
+    { pattern: "SVOO", name: "主語 + 動詞 + 目的語 + 目的語", check: "give / send / offer などで「人に物を」。本文の receive a subsidy は目的語1つなので SVO。" },
+    { pattern: "SVOC", name: "主語 + 動詞 + 目的語 + 補語", check: "O = C、または O が C する関係。make / allow / rank ... as が狙われやすい。" }
+  ],
+  patternQuestions: [
+    {
+      unit: 1,
+      sentence: "The company updated its principles when it comes to artificial intelligence.",
+      answer: "SVO",
+      breakdown: "S = The company / V = updated / O = its principles / when 以下は M"
+    },
+    {
+      unit: 2,
+      sentence: "The aim is to help high school students improve their English abilities.",
+      answer: "SVC",
+      breakdown: "S = The aim / V = is / C = to help ...。目的そのものを説明しているので C"
+    },
+    {
+      unit: 2,
+      sentence: "Students will pay the remaining costs out of pocket.",
+      answer: "SVO",
+      breakdown: "S = Students / V = will pay / O = the remaining costs / out of pocket は M"
+    },
+    {
+      unit: 2,
+      sentence: "Students will be interacting with their sister schools during the day.",
+      answer: "SV",
+      breakdown: "S = Students / V = will be interacting / with ... と during ... は M"
+    },
+    {
+      unit: 3,
+      sentence: "The World Health Organization ranked the Philippines as the country most affected by dengue.",
+      answer: "SVOC",
+      breakdown: "S = WHO / V = ranked / O = the Philippines / C = as the country ...。O を C と位置づけている"
+    },
+    {
+      unit: 4,
+      sentence: "The number is particularly high in Nasu and Nikko.",
+      answer: "SVC",
+      breakdown: "S = The number / V = is / C = high / particularly と in ... は M"
+    },
+    {
+      unit: 4,
+      sentence: "The weak yen makes it easier for foreigners to travel to Japan.",
+      answer: "SVOC",
+      breakdown: "S = The weak yen / V = makes / O = it / C = easier。make O C の形"
+    },
+    {
+      unit: 4,
+      sentence: "The lodgings allow foreign guests to experience a taste of Japanese culture.",
+      answer: "SVOC",
+      breakdown: "S = The lodgings / V = allow / O = foreign guests / C = to experience ...。O が行う内容を C と見る"
+    }
+  ]
+};
+
 export default function TestApp() {
-  const [currentMode, setCurrentMode] = useState('menu'); // menu, wr2, wr3, wr5, ar1, ar2, wordList, music_heal, music_imagine
+  const [currentMode, setCurrentMode] = useState('menu'); // menu, wr2, wr3, wr5, ar1, ar2, wordList, grammar, music_heal, music_imagine
   const [selectedUnit, setSelectedUnit] = useState(1);
   const [questions, setQuestions] = useState([]);
   const [qIndex, setQIndex] = useState(0);
@@ -289,6 +423,10 @@ export default function TestApp() {
           </button>
           <button onClick={() => startMode('wordList')} className="w-full flex items-center justify-between p-4 bg-sky-50 hover:bg-sky-100 text-sky-700 rounded-xl transition-colors font-medium">
             <span className="flex items-center gap-3"><AlignLeft size={20} /> 単語・定義一覧表</span>
+            <ChevronRight size={18} />
+          </button>
+          <button onClick={() => startMode('grammar')} className="w-full flex items-center justify-between p-4 bg-teal-50 hover:bg-teal-100 text-teal-700 rounded-xl transition-colors font-medium">
+            <span className="flex items-center gap-3"><LayoutList size={20} /> 品詞・文型対策</span>
             <ChevronRight size={18} />
           </button>
         </div>
@@ -683,6 +821,164 @@ export default function TestApp() {
     </div>
   );
 
+  const GrammarMode = () => {
+    const posIds = grammarData.posQuestions.map((_, i) => `pos-${i}`);
+    const patternIds = grammarData.patternQuestions.map((_, i) => `pattern-${i}`);
+    const allIds = [...posIds, ...patternIds];
+    const isAllRevealed = allIds.every(id => revealedBlanks.includes(id));
+    const toggleAnswer = (id) => {
+      setRevealedBlanks(
+        revealedBlanks.includes(id)
+          ? revealedBlanks.filter(item => item !== id)
+          : [...revealedBlanks, id]
+      );
+    };
+
+    return (
+      <div className="w-full max-w-3xl mx-auto px-4 pb-8">
+        <div className="mb-5">
+          <span className="text-sm font-bold text-teal-600 mb-2 block">Grammar - UNIT 1〜4</span>
+          <h2 className="text-2xl font-bold text-gray-800">品詞・文型対策</h2>
+        </div>
+
+        <div className="space-y-5">
+          <section className="bg-white p-5 md:p-6 rounded-2xl border border-teal-100 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">鉄則：空欄の前後を見る</h3>
+            <div className="grid gap-3 md:grid-cols-3">
+              {grammarData.rules.map(rule => (
+                <div key={rule.title} className="rounded-xl bg-teal-50 p-4 border border-teal-100">
+                  <p className="font-bold text-teal-800 mb-2">{rule.title}</p>
+                  <div className="space-y-2">
+                    {rule.points.map(point => (
+                      <p key={point} className="text-sm leading-6 text-gray-700 font-medium">・{point}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-white p-5 md:p-6 rounded-2xl border border-teal-100 shadow-sm">
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <h3 className="text-lg font-bold text-gray-800">本文抜き出し：品詞チェック</h3>
+              <button
+                onClick={() => setRevealedBlanks(isAllRevealed ? [] : allIds)}
+                className="shrink-0 rounded-lg bg-teal-600 px-3 py-2 text-sm font-bold text-white hover:bg-teal-700 transition-colors"
+              >
+                {isAllRevealed ? '全部隠す' : '全部表示'}
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {grammarData.posQuestions.map((q, i) => {
+                const id = `pos-${i}`;
+                const isOpen = revealedBlanks.includes(id);
+
+                return (
+                  <div key={id} className="rounded-xl border border-gray-200 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-bold text-teal-600 mb-1">UNIT {q.unit}</p>
+                        <p className="text-base md:text-lg leading-8 font-medium text-gray-800">{q.text}</p>
+                      </div>
+                      <button
+                        onClick={() => toggleAnswer(id)}
+                        className={`shrink-0 rounded-lg px-3 py-2 text-sm font-bold transition-colors ${isOpen ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                      >
+                        {isOpen ? '隠す' : '答え'}
+                      </button>
+                    </div>
+
+                    {isOpen && (
+                      <div className="mt-3 rounded-lg bg-teal-50 p-3 text-sm md:text-base leading-7 text-gray-700 font-medium">
+                        <p><span className="font-bold text-teal-800">正解：</span>{q.answer}（{q.pos}）</p>
+                        <p className="mt-1">{q.explanation}</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="bg-white p-5 md:p-6 rounded-2xl border border-teal-100 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">文型の見抜き方</h3>
+            <div className="grid gap-3 md:grid-cols-2">
+              {grammarData.patternRules.map(rule => (
+                <div key={rule.pattern} className="rounded-xl border border-gray-200 p-4">
+                  <p className="font-bold text-gray-800"><span className="text-teal-700">{rule.pattern}</span>：{rule.name}</p>
+                  <p className="mt-2 text-sm leading-6 text-gray-600 font-medium">{rule.check}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-white p-5 md:p-6 rounded-2xl border border-teal-100 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">本文から出る文型チェック</h3>
+            <div className="space-y-3">
+              {grammarData.patternQuestions.map((q, i) => {
+                const id = `pattern-${i}`;
+                const isOpen = revealedBlanks.includes(id);
+
+                return (
+                  <div key={id} className="rounded-xl border border-gray-200 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-bold text-teal-600 mb-1">UNIT {q.unit}</p>
+                        <p className="text-base md:text-lg leading-8 font-medium text-gray-800">{q.sentence}</p>
+                      </div>
+                      <button
+                        onClick={() => toggleAnswer(id)}
+                        className={`shrink-0 rounded-lg px-3 py-2 text-sm font-bold transition-colors ${isOpen ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                      >
+                        {isOpen ? '隠す' : '文型'}
+                      </button>
+                    </div>
+
+                    {isOpen && (
+                      <div className="mt-3 rounded-lg bg-teal-50 p-3 text-sm md:text-base leading-7 text-gray-700 font-medium">
+                        <p><span className="font-bold text-teal-800">文型：</span>{q.answer}</p>
+                        <p className="mt-1">{q.breakdown}</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="bg-white p-5 md:p-6 rounded-2xl border border-teal-100 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">重要単語の派生語ファミリー</h3>
+            <div className="-mx-2 overflow-x-auto px-2">
+              <table className="w-full min-w-[680px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 text-gray-500">
+                    <th className="py-3 pr-3 font-bold">意味</th>
+                    <th className="py-3 pr-3 font-bold">名詞</th>
+                    <th className="py-3 pr-3 font-bold">動詞</th>
+                    <th className="py-3 pr-3 font-bold">形容詞</th>
+                    <th className="py-3 font-bold">副詞</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {grammarData.wordFamilies.map(row => (
+                    <tr key={row.meaning} className="border-b border-gray-100 last:border-b-0">
+                      <td className="py-3 pr-3 font-bold text-gray-800">{row.meaning}</td>
+                      <td className="py-3 pr-3 text-gray-700">{row.noun}</td>
+                      <td className="py-3 pr-3 text-gray-700">{row.verb}</td>
+                      <td className="py-3 pr-3 text-gray-700">{row.adjective}</td>
+                      <td className="py-3 text-gray-700">{row.adverb}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  };
+
   const ResultPanel = ({ reason, jp }) => (
     <div className={`p-6 md:p-8 rounded-2xl border-2 shadow-sm ${isCorrect ? 'bg-blue-50 border-blue-200' : 'bg-red-50 border-red-200'} animate-in fade-in slide-in-from-bottom-4`}>
       <div className="flex items-center gap-3 mb-4">
@@ -717,6 +1013,7 @@ export default function TestApp() {
         {currentMode === 'ar1' && <AR1Mode />}
         {currentMode === 'ar2' && <AR2Mode />}
         {currentMode === 'wordList' && <WordListMode />}
+        {currentMode === 'grammar' && <GrammarMode />}
         {(currentMode === 'music_heal' || currentMode === 'music_imagine') && <MusicMode />}
       </div>
     </div>
