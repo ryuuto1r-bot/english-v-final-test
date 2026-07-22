@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, CheckCircle, XCircle, ChevronRight, ArrowLeft, Undo2, LayoutList, AlignLeft } from 'lucide-react';
+import { BookOpen, CheckCircle, XCircle, ChevronRight, ArrowLeft, Undo2, LayoutList, AlignLeft, Languages } from 'lucide-react';
 import testData from './testData';
 
 const musicData = {
@@ -271,6 +271,10 @@ export default function TestApp() {
         </p>
 
         <div className="space-y-3">
+          <button onClick={() => startMode('translation')} className="w-full flex items-center justify-between p-4 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl transition-colors font-medium">
+            <span className="flex items-center gap-3"><Languages size={20} /> 本文・段落ごとの和訳</span>
+            <ChevronRight size={18} />
+          </button>
           <button onClick={() => startMode('wr2')} className="w-full flex items-center justify-between p-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl transition-colors font-medium">
             <span className="flex items-center gap-3"><BookOpen size={20} /> 内容検索 (While reading 2)</span>
             <ChevronRight size={18} />
@@ -299,6 +303,28 @@ export default function TestApp() {
       </div>
     </div>
   );
+
+  const TranslationMode = () => {
+    const unit = testData[selectedUnit];
+    return (
+      <div className="w-full max-w-2xl mx-auto px-4 pb-8">
+        <div className="mb-6">
+          <span className="text-sm font-bold text-blue-600 mb-2 block">本文和訳 - UNIT {selectedUnit}</span>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">{unit.title}</h2>
+          <p className="mt-3 text-sm leading-6 text-gray-500">解説資料の試訳に準拠し、段落ごとに確認できます。</p>
+        </div>
+
+        <div className="space-y-4">
+          {unit.translation.map((paragraph, index) => (
+            <article key={index} className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
+              <div className="mb-2 text-sm font-bold text-blue-600">第 {index + 1} 段落</div>
+              <p className="text-base leading-8 text-gray-700">{paragraph}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   const WR2Mode = () => {
     const q = questions[qIndex];
@@ -858,6 +884,7 @@ export default function TestApp() {
       
       <div className="flex-1 flex items-center justify-center">
         {currentMode === 'menu' && <MainMenu />}
+        {currentMode === 'translation' && <TranslationMode />}
         {currentMode === 'wr2' && <WR2Mode />}
         {currentMode === 'wr3' && <WR3Mode />}
         {currentMode === 'wr5' && <WR5Mode />}
