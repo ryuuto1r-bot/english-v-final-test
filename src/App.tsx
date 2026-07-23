@@ -272,7 +272,13 @@ export default function TestApp() {
 
         <div className="space-y-3">
           <button onClick={() => startMode('translation')} className="w-full flex items-center justify-between p-4 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl transition-colors font-medium">
-            <span className="flex items-center gap-3"><Languages size={20} /> 本文・段落ごとの和訳</span>
+            <span className="flex items-center gap-3 text-left">
+              <Languages size={20} className="shrink-0" />
+              <span>
+                <span className="block">本文（元の英文＋和訳）</span>
+                <span className="mt-1 block text-xs font-bold text-blue-500">英文を追加済み</span>
+              </span>
+            </span>
             <ChevronRight size={18} />
           </button>
           <button onClick={() => startMode('wr2')} className="w-full flex items-center justify-between p-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl transition-colors font-medium">
@@ -309,7 +315,7 @@ export default function TestApp() {
     return (
       <div className="w-full max-w-2xl mx-auto px-4 pb-8">
         <div className="mb-6">
-          <span className="text-sm font-bold text-blue-600 mb-2 block">本文和訳 - UNIT {selectedUnit}</span>
+          <span className="text-sm font-bold text-blue-600 mb-2 block">本文（英文＋和訳）- UNIT {selectedUnit}</span>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">{unit.title}</h2>
           <p className="mt-3 text-sm leading-6 text-gray-500">元の英文と、解説資料に準拠した和訳を段落ごとに確認できます。</p>
         </div>
@@ -319,7 +325,7 @@ export default function TestApp() {
             <article key={index} className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
               <div className="mb-2 text-sm font-bold text-blue-600">第 {index + 1} 段落</div>
               <div className="rounded-xl bg-slate-50 p-4">
-                <div className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">Original English</div>
+                <div className="mb-2 text-xs font-bold tracking-wider text-slate-500">元の英文</div>
                 <p lang="en" className="text-base leading-8 text-slate-800">{unit.original[index]}</p>
               </div>
               <div className="mt-4 border-t border-blue-100 pt-4">
