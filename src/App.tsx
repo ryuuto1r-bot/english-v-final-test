@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BookOpen, CheckCircle, XCircle, ChevronRight, ArrowLeft, Undo2, LayoutList, AlignLeft, Languages } from 'lucide-react';
 import testData from './testData';
+import articleVocabulary from './articleVocabulary';
 
 const getCircledNumber = (index) => String.fromCodePoint(0x2460 + index);
 
@@ -181,6 +182,7 @@ export default function TestApp() {
   const [isFlipped, setIsFlipped] = useState(false); // フラッシュカード用
   const [revealedBlanks, setRevealedBlanks] = useState([]);
   const [revealedParagraphs, setRevealedParagraphs] = useState([]);
+  const [revealedVocabulary, setRevealedVocabulary] = useState([]);
 
   const startMode = (mode) => {
     setCurrentMode(mode);
@@ -190,6 +192,7 @@ export default function TestApp() {
     setIsFlipped(false);
     setRevealedBlanks([]);
     setRevealedParagraphs([]);
+    setRevealedVocabulary([]);
     
     if (mode === 'wr2') setQuestions(testData[selectedUnit].wr2);
     if (mode === 'wr3') setQuestions([testData[selectedUnit].wr3]);
@@ -316,12 +319,23 @@ export default function TestApp() {
 
   const TranslationMode = () => {
     const unit = testData[selectedUnit];
+    const vocabulary = articleVocabulary[selectedUnit];
     const isAllParagraphsOpen = revealedParagraphs.length === unit.translation.length;
     const toggleParagraph = (index) => {
+      if (revealedParagraphs.includes(index)) {
+        setRevealedVocabulary(revealedVocabulary.filter(item => item !== index));
+      }
       setRevealedParagraphs(
         revealedParagraphs.includes(index)
           ? revealedParagraphs.filter(item => item !== index)
           : [...revealedParagraphs, index]
+      );
+    };
+    const toggleVocabulary = (index) => {
+      setRevealedVocabulary(
+        revealedVocabulary.includes(index)
+          ? revealedVocabulary.filter(item => item !== index)
+          : [...revealedVocabulary, index]
       );
     };
 
@@ -330,7 +344,9 @@ export default function TestApp() {
         <div className="mb-6">
           <span className="text-sm font-bold text-blue-600 mb-2 block">本文（英文＋和訳）- UNIT {selectedUnit}</span>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">{unit.title}</h2>
-          <p className="mt-3 text-sm leading-6 text-gray-500">①・②・③…をタップすると、段落ごとの元の英文と和訳を確認できます。</p>
+          <p className="mt-3 text-sm leading-6 text-gray-500">
+            ①・②・③…をタップすると英文と和訳が開き、さらに重要単語・熟語の意味も表示できます。
+          </p>
         </div>
 
         <div className="mb-4 grid grid-cols-2 gap-2">
@@ -344,7 +360,10 @@ export default function TestApp() {
           </button>
           <button
             type="button"
-            onClick={() => setRevealedParagraphs([])}
+            onClick={() => {
+              setRevealedParagraphs([]);
+              setRevealedVocabulary([]);
+            }}
             disabled={revealedParagraphs.length === 0}
             className={`rounded-xl px-3 py-3 text-sm font-bold transition-colors ${revealedParagraphs.length === 0 ? 'bg-gray-200 text-gray-400' : 'bg-gray-800 text-white hover:bg-gray-700'}`}
           >
@@ -355,6 +374,8 @@ export default function TestApp() {
         <div className="space-y-4">
           {unit.translation.map((paragraph, index) => {
             const isOpen = revealedParagraphs.includes(index);
+            const isVocabularyOpen = revealedVocabulary.includes(index);
+            const paragraphVocabulary = vocabulary[index];
             return (
               <article key={index} className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
                 <button
@@ -382,6 +403,34 @@ export default function TestApp() {
                     <div className="mt-4 border-t border-blue-100 pt-4">
                       <div className="mb-2 text-xs font-bold tracking-wider text-blue-600">日本語訳</div>
                       <p className="text-base leading-8 text-gray-700">{paragraph}</p>
+                    </div>
+                    <div className="mt-4 border-t border-amber-100 pt-4">
+                      <button
+                        type="button"
+                        aria-expanded={isVocabularyOpen}
+                        onClick={() => toggleVocabulary(index)}
+                        className="flex w-full items-center justify-between gap-3 rounded-xl bg-amber-50 px-4 py-3 text-left text-amber-800 transition-colors hover:bg-amber-100"
+                      >
+                        <span className="flex items-center gap-2 font-bold">
+                          <BookOpen size={18} />
+                          重要単語・熟語の意味
+                        </span>
+                        <span className="flex shrink-0 items-center gap-2 text-xs font-bold">
+                          {paragraphVocabulary.length}語
+                          <ChevronRight size={18} className={`transition-transform ${isVocabularyOpen ? 'rotate-90' : ''}`} />
+                        </span>
+                      </button>
+
+                      {isVocabularyOpen && (
+                        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                          {paragraphVocabulary.map((item) => (
+                            <div key={item.word} className="rounded-xl border border-amber-100 bg-white px-4 py-3">
+                              <p lang="en" className="font-bold leading-6 text-slate-800">{item.word}</p>
+                              <p className="mt-1 text-sm leading-6 text-amber-800">{item.jp}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

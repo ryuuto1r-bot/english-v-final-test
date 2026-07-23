@@ -10,6 +10,13 @@ vm.createContext(context);
 vm.runInContext(runnable, context);
 const data = context.testData;
 
+const vocabularySource = fs.readFileSync(new URL('../src/articleVocabulary.ts', import.meta.url), 'utf8');
+const vocabularyRunnable = vocabularySource
+  .replace(/^const articleVocabulary = /, 'globalThis.articleVocabulary = ')
+  .replace(/\nexport default articleVocabulary;\s*$/, '');
+vm.runInContext(vocabularyRunnable, context);
+const articleVocabulary = context.articleVocabulary;
+
 const expected = {
   5: {
     translationCount: 11,
@@ -51,6 +58,7 @@ if (!same(Object.keys(data), ['5', '6', '7', '8'])) {
 
 for (const [unit, wanted] of Object.entries(expected)) {
   const entry = data[unit];
+  const unitVocabulary = articleVocabulary[unit];
   const blanks = [...entry.wr3.text.matchAll(/\[([^\]]+)\]/g)].map((match) => match[1]);
   const checks = [
     ['While reading 2', entry.wr2.map((item) => item.a), wanted.wr2],
@@ -73,6 +81,15 @@ for (const [unit, wanted] of Object.entries(expected)) {
   }
   if (entry.original.length !== entry.translation.length) {
     failures.push(`UNIT ${unit} original/translation pair mismatch`);
+  }
+  if (unitVocabulary.length !== wanted.translationCount) {
+    failures.push(`UNIT ${unit} article vocabulary paragraph count: ${unitVocabulary.length}`);
+  }
+  if (unitVocabulary.some((paragraph) => !paragraph.length)) {
+    failures.push(`UNIT ${unit} empty article vocabulary paragraph`);
+  }
+  if (unitVocabulary.flat().some((item) => !item.word?.trim() || !item.jp?.trim())) {
+    failures.push(`UNIT ${unit} incomplete article vocabulary entry`);
   }
   if (entry.original.some((paragraph) => !paragraph.trim())) {
     failures.push(`UNIT ${unit} empty original paragraph`);
@@ -98,4 +115,5 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Content audit passed: 4 units, 58 English/Japanese paragraph pairs, 16 WR2, 20 cloze blanks, 16 T/F, 16 ordering, 24 vocabulary entries.');
+const articleVocabularyCount = Object.values(articleVocabulary).flat(2).length;
+console.log(`Content audit passed: 4 units, 58 English/Japanese paragraph pairs, ${articleVocabularyCount} paragraph vocabulary entries, 16 WR2, 20 cloze blanks, 16 T/F, 16 ordering, 24 flashcard vocabulary entries.`);
