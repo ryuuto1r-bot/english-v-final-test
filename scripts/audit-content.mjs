@@ -68,6 +68,15 @@ for (const [unit, wanted] of Object.entries(expected)) {
   if (entry.translation.length !== wanted.translationCount) {
     failures.push(`UNIT ${unit} translation count: ${entry.translation.length}`);
   }
+  if (entry.original.length !== wanted.translationCount) {
+    failures.push(`UNIT ${unit} original count: ${entry.original.length}`);
+  }
+  if (entry.original.length !== entry.translation.length) {
+    failures.push(`UNIT ${unit} original/translation pair mismatch`);
+  }
+  if (entry.original.some((paragraph) => !paragraph.trim())) {
+    failures.push(`UNIT ${unit} empty original paragraph`);
+  }
   if (entry.translation.some((paragraph) => !paragraph.trim())) {
     failures.push(`UNIT ${unit} empty translation paragraph`);
   }
@@ -89,4 +98,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Content audit passed: 4 units, 58 translation paragraphs, 16 WR2, 20 cloze blanks, 16 T/F, 16 ordering, 24 vocabulary entries.');
+console.log('Content audit passed: 4 units, 58 English/Japanese paragraph pairs, 16 WR2, 20 cloze blanks, 16 T/F, 16 ordering, 24 vocabulary entries.');

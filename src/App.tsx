@@ -311,14 +311,21 @@ export default function TestApp() {
         <div className="mb-6">
           <span className="text-sm font-bold text-blue-600 mb-2 block">本文和訳 - UNIT {selectedUnit}</span>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">{unit.title}</h2>
-          <p className="mt-3 text-sm leading-6 text-gray-500">解説資料の試訳に準拠し、段落ごとに確認できます。</p>
+          <p className="mt-3 text-sm leading-6 text-gray-500">元の英文と、解説資料に準拠した和訳を段落ごとに確認できます。</p>
         </div>
 
         <div className="space-y-4">
           {unit.translation.map((paragraph, index) => (
             <article key={index} className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
               <div className="mb-2 text-sm font-bold text-blue-600">第 {index + 1} 段落</div>
-              <p className="text-base leading-8 text-gray-700">{paragraph}</p>
+              <div className="rounded-xl bg-slate-50 p-4">
+                <div className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">Original English</div>
+                <p lang="en" className="text-base leading-8 text-slate-800">{unit.original[index]}</p>
+              </div>
+              <div className="mt-4 border-t border-blue-100 pt-4">
+                <div className="mb-2 text-xs font-bold tracking-wider text-blue-600">日本語訳</div>
+                <p className="text-base leading-8 text-gray-700">{paragraph}</p>
+              </div>
             </article>
           ))}
         </div>
