@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BookOpen, CheckCircle, XCircle, ChevronRight, ArrowLeft, Undo2, LayoutList, AlignLeft, Languages } from 'lucide-react';
 import testData from './testData';
 
+const getCircledNumber = (index) => String.fromCodePoint(0x2460 + index);
+
 const musicData = {
   healTheWorld: [
     { q: "And this place [   ] be much brighter than tomorrow.", a: "could", options: ["could", "would", "should", "might"], jp: "そこは明日よりもずっと明るい場所かもしれない" },
@@ -178,6 +180,7 @@ export default function TestApp() {
   const [showHint, setShowHint] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false); // フラッシュカード用
   const [revealedBlanks, setRevealedBlanks] = useState([]);
+  const [revealedParagraphs, setRevealedParagraphs] = useState([]);
 
   const startMode = (mode) => {
     setCurrentMode(mode);
@@ -186,6 +189,7 @@ export default function TestApp() {
     setShowHint(false);
     setIsFlipped(false);
     setRevealedBlanks([]);
+    setRevealedParagraphs([]);
     
     if (mode === 'wr2') setQuestions(testData[selectedUnit].wr2);
     if (mode === 'wr3') setQuestions([testData[selectedUnit].wr3]);
@@ -312,28 +316,78 @@ export default function TestApp() {
 
   const TranslationMode = () => {
     const unit = testData[selectedUnit];
+    const isAllParagraphsOpen = revealedParagraphs.length === unit.translation.length;
+    const toggleParagraph = (index) => {
+      setRevealedParagraphs(
+        revealedParagraphs.includes(index)
+          ? revealedParagraphs.filter(item => item !== index)
+          : [...revealedParagraphs, index]
+      );
+    };
+
     return (
       <div className="w-full max-w-2xl mx-auto px-4 pb-8">
         <div className="mb-6">
           <span className="text-sm font-bold text-blue-600 mb-2 block">本文（英文＋和訳）- UNIT {selectedUnit}</span>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-relaxed">{unit.title}</h2>
-          <p className="mt-3 text-sm leading-6 text-gray-500">元の英文と、解説資料に準拠した和訳を段落ごとに確認できます。</p>
+          <p className="mt-3 text-sm leading-6 text-gray-500">①・②・③…をタップすると、段落ごとの元の英文と和訳を確認できます。</p>
+        </div>
+
+        <div className="mb-4 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => setRevealedParagraphs(unit.translation.map((_, index) => index))}
+            disabled={isAllParagraphsOpen}
+            className={`rounded-xl px-3 py-3 text-sm font-bold transition-colors ${isAllParagraphsOpen ? 'bg-gray-200 text-gray-400' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+          >
+            すべて表示
+          </button>
+          <button
+            type="button"
+            onClick={() => setRevealedParagraphs([])}
+            disabled={revealedParagraphs.length === 0}
+            className={`rounded-xl px-3 py-3 text-sm font-bold transition-colors ${revealedParagraphs.length === 0 ? 'bg-gray-200 text-gray-400' : 'bg-gray-800 text-white hover:bg-gray-700'}`}
+          >
+            すべて隠す
+          </button>
         </div>
 
         <div className="space-y-4">
-          {unit.translation.map((paragraph, index) => (
-            <article key={index} className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
-              <div className="mb-2 text-sm font-bold text-blue-600">第 {index + 1} 段落</div>
-              <div className="rounded-xl bg-slate-50 p-4">
-                <div className="mb-2 text-xs font-bold tracking-wider text-slate-500">元の英文</div>
-                <p lang="en" className="text-base leading-8 text-slate-800">{unit.original[index]}</p>
-              </div>
-              <div className="mt-4 border-t border-blue-100 pt-4">
-                <div className="mb-2 text-xs font-bold tracking-wider text-blue-600">日本語訳</div>
-                <p className="text-base leading-8 text-gray-700">{paragraph}</p>
-              </div>
-            </article>
-          ))}
+          {unit.translation.map((paragraph, index) => {
+            const isOpen = revealedParagraphs.includes(index);
+            return (
+              <article key={index} className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => toggleParagraph(index)}
+                  className="flex w-full items-center gap-3 text-left"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xl font-bold text-white">
+                    {getCircledNumber(index)}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-bold text-gray-800">第 {index + 1} 段落</span>
+                    <span className="mt-1 block text-xs font-bold text-blue-500">{isOpen ? 'タップして閉じる' : 'タップして表示'}</span>
+                  </span>
+                  <ChevronRight size={20} className={`shrink-0 text-blue-500 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                </button>
+
+                {isOpen && (
+                  <div className="mt-4 border-t border-blue-100 pt-4">
+                    <div className="rounded-xl bg-slate-50 p-4">
+                      <div className="mb-2 text-xs font-bold tracking-wider text-slate-500">元の英文</div>
+                      <p lang="en" className="text-base leading-8 text-slate-800">{unit.original[index]}</p>
+                    </div>
+                    <div className="mt-4 border-t border-blue-100 pt-4">
+                      <div className="mb-2 text-xs font-bold tracking-wider text-blue-600">日本語訳</div>
+                      <p className="text-base leading-8 text-gray-700">{paragraph}</p>
+                    </div>
+                  </div>
+                )}
+              </article>
+            );
+          })}
         </div>
       </div>
     );
